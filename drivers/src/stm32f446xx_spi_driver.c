@@ -26,6 +26,7 @@
 
 void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 {
+
 	//To enable or disable the clock.
 	if(EnorDi == ENABLE){
 			if(pSPIx == SPI1)
@@ -86,6 +87,9 @@ void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi)
 
 void SPI_Init(SPI_Handle_t *pSPIHandle)
 {
+
+	//peripheral clock enable
+	SPI_PeriClockControl(pSPIHandle->pSPIx, ENABLE);
 	/*first lets configure the SPI_CR1 register*/
 	uint32_t tempreg = 0;
 	//peripheral clock enable
@@ -143,7 +147,23 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 void SPI_DeInit(SPI_RegDef_t *pSPIx)
 {
 	/*This is to de-Initialize : That means it restores the value back to default state*/
-	//todo
+				if(pSPIx == SPI1)
+				{
+					SPI1_REG_RESET();
+				}
+				else if(pSPIx == SPI2)
+				{
+					SPI2_REG_RESET();
+				}
+				else if(pSPIx == SPI3)
+				{
+					SPI3_REG_RESET();
+				}
+				else if(pSPIx == SPI4)
+				{
+					SPI4_REG_RESET();
+				}
+
 }
 uint32_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx, uint32_t FlagName)
 {
@@ -245,7 +265,7 @@ void SPI_ReceiveData(SPI_RegDef_t *pSPIx, uint8_t *pRxBuffer, uint32_t Len)
 
 uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Len)
 {
-	uint8_t state = pSPIHandle->pTxState;
+	uint8_t state = *pSPIHandle->pTxState;
 
 		if(state != SPI_BUSY_IN_TX)
 		{
@@ -254,9 +274,9 @@ uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Le
 			pSPIHandle->TxLen = Len;
 		//2. Mark the SPI state as busy in transmission so that
 		// no other code can take over same SPI peripheral until transmission is over
-			pSPIHandle->pTxState = SPI_BUSY_IN_TX;
+			*pSPIHandle->pTxState = (1 << SPI_BUSY_IN_TX);
 		//3. Enable the TXEIE control bit to get interrupt whenever TXE flag is set in SR
-			pSPIHandle->pSPIx->CR2 |=(1<<SPI_CR2_TXEIE);
+			pSPIHandle->pSPIx->CR2 |=(1 << SPI_CR2_TXEIE);
 		//4. Data transmission will be handled by the ISR code (will implement later)
 		}
 		return state;
@@ -264,7 +284,7 @@ uint8_t SPI_SendDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pTxBuffer, uint32_t Le
 
 uint8_t SPI_ReceiveDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t Len)
 {
-	uint8_t state = pSPIHandle->pRxState;
+	uint8_t state = *pSPIHandle->pRxState;
 
 	if(state != SPI_BUSY_IN_RX)
 	{
@@ -273,7 +293,7 @@ uint8_t SPI_ReceiveDataIT(SPI_Handle_t *pSPIHandle, uint8_t *pRxBuffer, uint32_t
 		pSPIHandle->RxLen = Len;
 	//2. Mark the SPI state as busy in transmission so that
 	// no other code can take over same SPI peripheral until transmission is over
-		pSPIHandle->pRxState = SPI_BUSY_IN_RX;
+		*pSPIHandle->pRxState = (1 << SPI_BUSY_IN_RX);
 	//3. Enable the TXEIE control bit to get interrupt whenever TXE flag is set in SR
 		pSPIHandle->pSPIx->CR2 |=(1<<SPI_CR2_RXNEIE);
 	//4. Data transmission will be handled by the ISR code (will implement later)
@@ -478,7 +498,7 @@ static void spi_ovr_err_interrupt_handle(SPI_Handle_t *pSPIHandle)
 {
 	//clear the ovr flag
 	uint8_t temp;
-	if(pSPIHandle->pTxState != SPI_BUSY_IN_TX)
+	if(*pSPIHandle->pTxState != SPI_BUSY_IN_TX)
 	{
 		temp = pSPIHandle->pSPIx->DR;
 		temp = pSPIHandle->pSPIx->SR;

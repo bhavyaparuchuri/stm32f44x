@@ -113,7 +113,6 @@ typedef struct
 #define SPI_EVENT_CRC_ERR		4
 
 
-
 /**************************************************************************************************************
  * 									APIs Supported by this driver
  * 				For more information about the APIs clock the function defintion

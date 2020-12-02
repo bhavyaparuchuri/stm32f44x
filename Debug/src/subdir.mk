@@ -4,13 +4,13 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../src/001LEDtoggle.c 
+../src/006i2c_master_tx_testing.c 
 
 OBJS += \
-./src/001LEDtoggle.o 
+./src/006i2c_master_tx_testing.o 
 
 C_DEPS += \
-./src/001LEDtoggle.d 
+./src/006i2c_master_tx_testing.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

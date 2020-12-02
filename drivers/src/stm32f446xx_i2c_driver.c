@@ -5,8 +5,7 @@
  *      Author: bhavya
  */
 #include "stm32f446xx_i2c_driver.h"
-uint16_t AHB_PreScaler[8] = {2,4,8,16,64,128,256,512};
-uint16_t APB1_PreScaler[4] = {2,4,8,16};
+
 
 static void I2C_ExecuteAddressPhaseWrite(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
 static void I2C_ExecuteAddressPhaseRead(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);
@@ -148,56 +147,7 @@ void I2C_PeriClockControl(I2C_RegDef_t *pI2Cx, uint8_t EnorDi)
 			}
 		}
 }
-/*To calucate the value of APB1 bus clock*/
-uint32_t RCC_GetPLLOutputClock()
-{
-	return 0;
-}
-uint32_t RCC_GetPCLK1Value(void)
-{
-	uint32_t pclk1, SystemClk;
-	uint8_t clksrc, temp, ahbp, apb1p;
 
-	clksrc = ((RCC->CFGR >> 2) & 0x3);
-
-	if(clksrc == 0)
-	{
-		SystemClk =16000000;
-	}
-	else if(clksrc == 0)
-	{
-		SystemClk =8000000;
-	}
-	else if(clksrc == 0)
-	{
-		SystemClk = RCC_GetPLLOutputClock();
-	}
-	//for ahb
-	temp = ((RCC->CFGR >> 4) & 0xF);
-	if(temp < 8)
-	{
-		ahbp = 1;
-	}
-	else
-	{
-		ahbp = AHB_PreScaler[temp-8];
-	}
-
-	//for apb1
-	temp = ((RCC->CFGR >> 10) & 0x7);
-	if(temp < 4)
-	{
-		ahbp = 1;
-	}
-	else
-	{
-		apb1p = APB1_PreScaler[temp-4];
-	}
-
-	pclk1 = (SystemClk / ahbp) / apb1p;
-
-return pclk1;
-}
 /*
  * Init and De-init
  */
@@ -229,6 +179,9 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
 	 */
 	uint32_t tempreg = 0;
 	uint8_t trise;
+
+	//enable the clock for the I2C peripheral
+	I2C_PeriClockControl(pI2CHandle->pI2Cx,ENABLE);
 
 	//ack control bit
 	tempreg |= (pI2CHandle->I2C_Config.I2C_ACKControl << 10);
@@ -303,7 +256,19 @@ void I2C_Init(I2C_Handle_t *pI2CHandle)
 void I2C_DeInit(I2C_RegDef_t *pI2Cx)
 {
 	/*This is to de-Initialize : That means it restores the value back to default state*/
-	//todo
+
+				if(pI2Cx == I2C1)
+				{
+					I2C1_REG_RESET();
+				}
+				else if(pI2Cx == I2C2)
+				{
+					I2C2_REG_RESET();
+				}
+				else if(pI2Cx == I2C3)
+				{
+					I2C3_REG_RESET();
+				}
 }
 
 
@@ -471,7 +436,6 @@ void I2C_ManageAcking(I2C_RegDef_t *pI2Cx, uint32_t EnorDi)
 	{
 		//disable the ack
 		pI2Cx->CR1 &= ~(1<< I2C_CR1_ACK);
-
 	}
 }
 
@@ -514,10 +478,7 @@ uint8_t  I2C_MasterSendDataIT(I2C_Handle_t *pI2CHandle,uint8_t *pTxBuffer, uint3
 
 		//Implement the code to enable ITERREN Control Bit
 		pI2CHandle->pI2Cx->CR2 |= ( 1 << I2C_CR2_ITERREN);
-
-
 	}
-
 	return busystate;
 
 }
@@ -670,36 +631,34 @@ static void I2C_MasterHandleTXEInterrupt(I2C_Handle_t *pI2CHandle)
 static void I2C_MasterHandleRXNEInterrupt(I2C_Handle_t *pI2CHandle)
 {
 	//we have to do the data reception
-					if(pI2CHandle->RxSize == 1)
-					{
-						*pI2CHandle->pRxBuffer = pI2CHandle->pI2Cx->DR;
-						pI2CHandle->RxLen--;
-					}
-				if(pI2CHandle->RxSize > 1)
-				{
-					if(pI2CHandle->RxLen == 2)
-					{
-						//clear the ack bit
-					}
-					//read DR
-					*pI2CHandle->pRxBuffer = pI2CHandle->pI2Cx->DR;
-					pI2CHandle->pRxBuffer++;
-					pI2CHandle->RxLen--;
-				}
-				if(pI2CHandle->RxLen == 0)
-				{
-					//close the I2C data reception and notify the application
+	if(pI2CHandle->RxSize == 1)
+	{
+		*pI2CHandle->pRxBuffer = pI2CHandle->pI2Cx->DR;
+		 pI2CHandle->RxLen--;
+	}
+	if(pI2CHandle->RxSize > 1)
+	{
+		if(pI2CHandle->RxLen == 2)
+		{
+			//clear the ack bit
+		}
+			//read DR
+			*pI2CHandle->pRxBuffer = pI2CHandle->pI2Cx->DR;
+			pI2CHandle->pRxBuffer++;
+			pI2CHandle->RxLen--;
+	}
+	if(pI2CHandle->RxLen == 0)
+	{
+			//close the I2C data reception and notify the application
 
-					//1.generate the stop condition
-					if(pI2CHandle->Sr == I2C_DISABLE_SR)
-						I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
-					//2.close the I2C rx
-					I2C_CloseReceiveData(pI2CHandle);
-					//3. Notify the application
-					I2C_ApplicationEventCallback(pI2CHandle,I2C_EV_RX_CMPLT);
-				}
-
-
+			//1.generate the stop condition
+				if(pI2CHandle->Sr == I2C_DISABLE_SR)
+				I2C_GenerateStartCondition(pI2CHandle->pI2Cx);
+			//2.close the I2C rx
+				I2C_CloseReceiveData(pI2CHandle);
+			//3. Notify the application
+				I2C_ApplicationEventCallback(pI2CHandle,I2C_EV_RX_CMPLT);
+	}
 }
 
 void I2C_IRQPriorityConfig(uint8_t IRQNumber,uint8_t IRQPriority)
@@ -782,13 +741,13 @@ void I2C_EV_IRQHandling(I2C_Handle_t *pI2CHandle)
 						//BTF, TXE = 1
 						if(pI2CHandle->TxLen == 0)
 						{
-						//1.generate the STOP condition
+						//1.Generate the STOP condition
 						if(pI2CHandle->Sr == I2C_DISABLE_SR)
 							I2C_GenerateStopCondition(pI2CHandle->pI2Cx);
 
-						//2.reset all the members elements of the handle structure.
+						//2.Reset all the members elements of the handle structure.
 							I2C_CloseSendData(pI2CHandle);
-						//notify the application about transmission complete
+						//3.Notify the application about transmission complete
 							I2C_ApplicationEventCallback(pI2CHandle,I2C_EV_TX_CMPLT);
 
 						}
