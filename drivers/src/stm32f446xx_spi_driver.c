@@ -5,7 +5,7 @@
  *      Author: bhavi
  */
 
-#include "stm32f446xx_spi_driver.h"
+#include "../inc/stm32f446xx_spi_driver.h"
 /*
  * Peripheral Clock Setup
  */

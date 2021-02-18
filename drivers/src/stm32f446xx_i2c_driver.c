@@ -4,7 +4,7 @@
  *  Created on: 24-Nov-2020
  *      Author: bhavya
  */
-#include "stm32f446xx_i2c_driver.h"
+#include "../inc/stm32f446xx_i2c_driver.h"
 
 
 static void I2C_ExecuteAddressPhaseWrite(I2C_RegDef_t *pI2Cx, uint8_t SlaveAddr);

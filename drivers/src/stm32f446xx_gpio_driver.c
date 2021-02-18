@@ -4,7 +4,7 @@
  *  Created on: 06-Nov-2020
  *      Author: bhavi
  */
-#include "stm32f446xx_gpio_driver.h"
+#include "../inc/stm32f446xx_gpio_driver.h"
 /*
  * Peripheral Clock Setup
  */

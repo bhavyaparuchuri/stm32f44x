@@ -4,7 +4,8 @@
  *  Created on: 10-Nov-2020
  *      Author: bhavi
  */
-#include "stm32f446xx.h"
+#include "../drivers/inc/stm32f446xx.h"
+#include "../drivers/inc/stm32f446xx_gpio_driver.h"
 
 void delay(void)
 {

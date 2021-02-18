@@ -6,7 +6,7 @@
  */
 
 
-#include "stm32f446xx_rcc_driver.h"
+#include "../inc/stm32f446xx_rcc_driver.h"
 uint16_t AHB_PreScaler[8] = {2,4,8,16,64,128,256,512};
 uint16_t APB1_PreScaler[4] = {2,4,8,16};
 
