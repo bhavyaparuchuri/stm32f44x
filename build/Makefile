@@ -123,14 +123,14 @@ blinky/fast:
 	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/build
 .PHONY : blinky/fast
 
-drivers/src/stm32f446xx_gpio_driver.o: drivers/src/stm32f446xx_gpio_driver.c.o
+drivers/src/stm32f446xx_gpio_driver.obj: drivers/src/stm32f446xx_gpio_driver.c.obj
 
-.PHONY : drivers/src/stm32f446xx_gpio_driver.o
+.PHONY : drivers/src/stm32f446xx_gpio_driver.obj
 
 # target to build an object file
-drivers/src/stm32f446xx_gpio_driver.c.o:
-	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_gpio_driver.c.o
-.PHONY : drivers/src/stm32f446xx_gpio_driver.c.o
+drivers/src/stm32f446xx_gpio_driver.c.obj:
+	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_gpio_driver.c.obj
+.PHONY : drivers/src/stm32f446xx_gpio_driver.c.obj
 
 drivers/src/stm32f446xx_gpio_driver.i: drivers/src/stm32f446xx_gpio_driver.c.i
 
@@ -150,14 +150,14 @@ drivers/src/stm32f446xx_gpio_driver.c.s:
 	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_gpio_driver.c.s
 .PHONY : drivers/src/stm32f446xx_gpio_driver.c.s
 
-drivers/src/stm32f446xx_rcc_driver.o: drivers/src/stm32f446xx_rcc_driver.c.o
+drivers/src/stm32f446xx_rcc_driver.obj: drivers/src/stm32f446xx_rcc_driver.c.obj
 
-.PHONY : drivers/src/stm32f446xx_rcc_driver.o
+.PHONY : drivers/src/stm32f446xx_rcc_driver.obj
 
 # target to build an object file
-drivers/src/stm32f446xx_rcc_driver.c.o:
-	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_rcc_driver.c.o
-.PHONY : drivers/src/stm32f446xx_rcc_driver.c.o
+drivers/src/stm32f446xx_rcc_driver.c.obj:
+	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_rcc_driver.c.obj
+.PHONY : drivers/src/stm32f446xx_rcc_driver.c.obj
 
 drivers/src/stm32f446xx_rcc_driver.i: drivers/src/stm32f446xx_rcc_driver.c.i
 
@@ -177,14 +177,14 @@ drivers/src/stm32f446xx_rcc_driver.c.s:
 	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_rcc_driver.c.s
 .PHONY : drivers/src/stm32f446xx_rcc_driver.c.s
 
-drivers/src/stm32f446xx_spi_driver.o: drivers/src/stm32f446xx_spi_driver.c.o
+drivers/src/stm32f446xx_spi_driver.obj: drivers/src/stm32f446xx_spi_driver.c.obj
 
-.PHONY : drivers/src/stm32f446xx_spi_driver.o
+.PHONY : drivers/src/stm32f446xx_spi_driver.obj
 
 # target to build an object file
-drivers/src/stm32f446xx_spi_driver.c.o:
-	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_spi_driver.c.o
-.PHONY : drivers/src/stm32f446xx_spi_driver.c.o
+drivers/src/stm32f446xx_spi_driver.c.obj:
+	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_spi_driver.c.obj
+.PHONY : drivers/src/stm32f446xx_spi_driver.c.obj
 
 drivers/src/stm32f446xx_spi_driver.i: drivers/src/stm32f446xx_spi_driver.c.i
 
@@ -204,14 +204,14 @@ drivers/src/stm32f446xx_spi_driver.c.s:
 	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/drivers/src/stm32f446xx_spi_driver.c.s
 .PHONY : drivers/src/stm32f446xx_spi_driver.c.s
 
-src/001LEDtoggle.o: src/001LEDtoggle.c.o
+src/001LEDtoggle.obj: src/001LEDtoggle.c.obj
 
-.PHONY : src/001LEDtoggle.o
+.PHONY : src/001LEDtoggle.obj
 
 # target to build an object file
-src/001LEDtoggle.c.o:
-	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/src/001LEDtoggle.c.o
-.PHONY : src/001LEDtoggle.c.o
+src/001LEDtoggle.c.obj:
+	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/src/001LEDtoggle.c.obj
+.PHONY : src/001LEDtoggle.c.obj
 
 src/001LEDtoggle.i: src/001LEDtoggle.c.i
 
@@ -231,14 +231,14 @@ src/001LEDtoggle.c.s:
 	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/src/001LEDtoggle.c.s
 .PHONY : src/001LEDtoggle.c.s
 
-startup/syscalls.o: startup/syscalls.c.o
+startup/syscalls.obj: startup/syscalls.c.obj
 
-.PHONY : startup/syscalls.o
+.PHONY : startup/syscalls.obj
 
 # target to build an object file
-startup/syscalls.c.o:
-	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/startup/syscalls.c.o
-.PHONY : startup/syscalls.c.o
+startup/syscalls.c.obj:
+	$(MAKE) -f CMakeFiles/blinky.dir/build.make CMakeFiles/blinky.dir/startup/syscalls.c.obj
+.PHONY : startup/syscalls.c.obj
 
 startup/syscalls.i: startup/syscalls.c.i
 
@@ -267,19 +267,19 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... blinky"
 	@echo "... edit_cache"
-	@echo "... drivers/src/stm32f446xx_gpio_driver.o"
+	@echo "... drivers/src/stm32f446xx_gpio_driver.obj"
 	@echo "... drivers/src/stm32f446xx_gpio_driver.i"
 	@echo "... drivers/src/stm32f446xx_gpio_driver.s"
-	@echo "... drivers/src/stm32f446xx_rcc_driver.o"
+	@echo "... drivers/src/stm32f446xx_rcc_driver.obj"
 	@echo "... drivers/src/stm32f446xx_rcc_driver.i"
 	@echo "... drivers/src/stm32f446xx_rcc_driver.s"
-	@echo "... drivers/src/stm32f446xx_spi_driver.o"
+	@echo "... drivers/src/stm32f446xx_spi_driver.obj"
 	@echo "... drivers/src/stm32f446xx_spi_driver.i"
 	@echo "... drivers/src/stm32f446xx_spi_driver.s"
-	@echo "... src/001LEDtoggle.o"
+	@echo "... src/001LEDtoggle.obj"
 	@echo "... src/001LEDtoggle.i"
 	@echo "... src/001LEDtoggle.s"
-	@echo "... startup/syscalls.o"
+	@echo "... startup/syscalls.obj"
 	@echo "... startup/syscalls.i"
 	@echo "... startup/syscalls.s"
 .PHONY : help

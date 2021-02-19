@@ -1,3 +1,0 @@
-/home/bhavya/Work/stm32f44x/b1/CMakeFiles/rebuild_cache.dir
-/home/bhavya/Work/stm32f44x/b1/CMakeFiles/blinky.dir
-/home/bhavya/Work/stm32f44x/b1/CMakeFiles/edit_cache.dir

@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_gpio_driver.c.o"
-  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_rcc_driver.c.o"
-  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_spi_driver.c.o"
-  "CMakeFiles/blinky.dir/src/001LEDtoggle.c.o"
-  "CMakeFiles/blinky.dir/startup/syscalls.c.o"
+  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_gpio_driver.c.obj"
+  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_rcc_driver.c.obj"
+  "CMakeFiles/blinky.dir/drivers/src/stm32f446xx_spi_driver.c.obj"
+  "CMakeFiles/blinky.dir/src/001LEDtoggle.c.obj"
+  "CMakeFiles/blinky.dir/startup/syscalls.c.obj"
   "blinky"
   "blinky.pdb"
 )
